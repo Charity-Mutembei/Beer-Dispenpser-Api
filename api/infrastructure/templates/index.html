@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="coly-6">
+        <div class="text">
+          <div class="start-button" style="padding-top: 4vw;">
+            <input class="inButton" value="Start Dispensing" type="button" id="start1" onclick="toggle()">
+          </div>
+          <div class="middle-text" style="padding-bottom: 4vw;" id="formy">
+            <form action="" method="post">
+              {% csrf_token %}
+              
+              {{form.productname}}
+
+              {{form.dispensing_time}}
+
+              {{form.stop_dispensing_time}} 
+
+
+              <input class="outButton" type="submit" value="Stop Dispensing"  id="start2">
+
+              <!-- <input type="button"> -->
+              <!-- hey -->
+
+            </form>
+          </div>
+          <!-- <div class="end-button">
+            <input class="outButton" value="Stop Dispensing" type="button" id="start2">
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    #formy{
+      display: none;
+    }
+    #id_dispensing_time{
+      display: none;
+    }
+    #id_stop_dispensing_time{
+      display: none;
+    }
+  </style>
+  <script>
+    const btn = document.querySelector("#start1")
+    const form = document.querySelector("#formy")
+
+    btn.addEventListener("click", function (){
+      if (form.style.display === 'block'){
+        form.style.display = "block";
+      } else{
+        form.style.display = "block";
+      }
+    });
+  </script>
+
+  <!-- <script src="{% static 'index.js'%}"></script> -->
+  <script>
+    $(document).ready(function () {
+      $('.inButton, .outButton').click(timestamp);
+      var start
+      var stop
+
+      function timestamp() {
+
+        var d = new Date();
+        var minutes = d.getMinutes();
+
+        if (minutes < 10) { var minutes = "0" + minutes; }
+
+
+
+        if ($(this).hasClass('inButton')) {
+          $('.timeIn input').val(d);
+          $('#id_dispensing_time').val(d);
+          start = d
+
+        }
+
+
+        else {
+
+          $('.timeOut input').val(d)
+          $('#id_stop_dispensing_time').val(d)
+          // stop = d
+          // console.log(start)
+          // console.log(stop)
+          // console.log((stop-start)/1000)
+          // console.log(d)
+
+        }
+      }
+
+
+    });
+
+  </script>
+</body>
+{% endblock %}
